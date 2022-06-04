@@ -1,24 +1,21 @@
-import json
-import csv
-import os
-
-cwd = os.getcwd()
-
+import json, csv, os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Opening JSON file and loading the data
 # into the variable data
-with open('./import.json') as json_file:
+with open(os.getenv('IMPORT')) as json_file:
     data = json.load(json_file)
  
 # now we will open a file for writing
-data_file = open('./export.csv', 'w')
+data_file = open(os.getenv('EXPORT'), 'w')
  
 # create the csv writer object
 csv_writer = csv.writer(data_file)
  
 # Counter variable used for writing
 # headers to the CSV file
-count = 0
+count = 0 
  
 for emp in data:
     if count == 0:
