@@ -1,0 +1,32 @@
+bugId,changedFiles,diff,failingTests,metrics,observations,program,project,repairActions,repairPatterns,repairTools,revisionId
+6,{'org/jfree/chart/util/ShapeList.java': {'changes': [[111]]}},"--- a/source/org/jfree/chart/util/ShapeList.java
++++ b/source/org/jfree/chart/util/ShapeList.java
+@@ -108,7 +108,14 @@ public boolean equals(Object obj) {
+         if (!(obj instanceof ShapeList)) {
+             return false;
+         }
+-        return super.equals(obj);
++        ShapeList that = (ShapeList) obj;
++        int listSize = size();
++        for (int i = 0; i < listSize; i++) {
++           if (!ShapeUtilities.equal((Shape) get(i), (Shape) that.get(i))) {
++               return false;
++           }
++        }
++        return true;
+ 
+     }
+ 
+","[{'className': ' org.jfree.chart.util.junit.ShapeListTests', 'error': 'junit.framework.AssertionFailedError', 'message': 'expected:<org.jfree.chart.util.ShapeList@d0e55451> but was:<org.jfree.chart.util.ShapeList@d951b68f>', 'methodName': 'testSerialization'}, {'className': ' org.jfree.chart.util.junit.ShapeListTests', 'error': 'junit.framework.AssertionFailedError', 'message': '', 'methodName': 'testEquals'}]","{'chunks': 1, 'classes': 1, 'files': 1, 'linesAdd': 7, 'linesMod': 1, 'linesRem': 0, 'methods': 1, 'sizeInLines': 8, 'spreadAllLines': 0, 'spreadCodeOnly': 0}",,jfreechart,Chart,"['assignAdd', 'condBranIfAdd', 'loopAdd', 'mcAdd', 'mcRem', 'retBranchAdd', 'retExpChange', 'varAdd']","['condBlockRetAdd', 'wrongComp']",['rtCardumen'],1166
+10,{'org/jfree/chart/imagemap/StandardToolTipTagFragmentGenerator.java': {'changes': [[65]]}},"--- a/source/org/jfree/chart/imagemap/StandardToolTipTagFragmentGenerator.java
++++ b/source/org/jfree/chart/imagemap/StandardToolTipTagFragmentGenerator.java
+@@ -62,7 +62,7 @@ public StandardToolTipTagFragmentGenerator() {
+      * @return The formatted HTML area tag attribute(s).
+      */
+     public String generateToolTipFragment(String toolTipText) {
+-        return "" title=\"""" + toolTipText
++        return "" title=\"""" + ImageMapUtilities.htmlEscape(toolTipText) 
+             + ""\"" alt=\""\"""";
+     }
+ 
+","[{'className': ' org.jfree.chart.imagemap.junit.StandardToolTipTagFragmentGeneratorTests', 'error': 'junit.framework.ComparisonFailure', 'message': 'expected:< title=""Series [&quot;A&quot;], 100.0"" alt=""""> but was:< title=""Series [""A""], 100.0"" alt="""">', 'methodName': 'testGenerateURLFragment'}]","{'chunks': 1, 'classes': 1, 'files': 1, 'linesAdd': 0, 'linesMod': 1, 'linesRem': 0, 'methods': 1, 'sizeInLines': 1, 'spreadAllLines': 0, 'spreadCodeOnly': 0}",,jfreechart,Chart,"['mcAdd', 'retExpChange']","['singleLine', 'wrapsMethod']",[],1065
