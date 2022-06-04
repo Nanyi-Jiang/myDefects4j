@@ -1,6 +1,6 @@
 # Usage of the parser
 
-## the following command to run the parser.
+## Use the following command to run the parser.
 
 ```
 ./run.sh
